@@ -1,18 +1,19 @@
 import streamlit as st
+import boto3
+import pandas as pd
+from io import StringIO
+
+# Set the page config before any other Streamlit commands
+st.set_page_config(layout="wide")
 
 # Simple password protection
 def password_protect():
     password = st.text_input("Enter password:", type="password")
-    if password != "!NewEnglandClamCh0w@":
+    if password != "!NewEnglandClamCh0wd@":
         st.warning("Incorrect password. Please try again.")
         st.stop()  # This will stop the execution of the app if the password is incorrect.
 
 password_protect()
-
-# Rest of your app code below
-import boto3
-import pandas as pd
-from io import StringIO
 
 # AWS credentials (using secrets)
 aws_access_key_id = st.secrets["AWS_ACCESS_KEY_ID"]
@@ -40,7 +41,6 @@ def load_all_data():
             combined_df = pd.concat([combined_df, df], ignore_index=True)
     return combined_df
 
-st.set_page_config(layout="wide")
 st.title("AWS S3 Data Viewer")
 
 try:
